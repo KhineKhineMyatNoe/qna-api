@@ -1,6 +1,6 @@
 import { QuestionObj, ResultsObj } from "@/apis/question";
 import useCreateResult from "@/hooks/useCreateResult";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface QuestionsProps {
   data: QuestionObj[];
@@ -12,7 +12,16 @@ interface ResultObj extends QuestionObj {
 
 const Questions: React.FC<QuestionsProps> = ({ data }) => {
   const [result, setResult] = useState<ResultObj[] | []>([]);
-  const { handleClick } = useCreateResult();
+
+  
+  
+  const resetData = useCallback(() => {
+    const resultData = data.map((item) => ({ ...item, user_answer: null }));
+    console.log({resultData});
+    setResult([...resultData]);
+  }, [result, setResult]);
+
+  const { handleClick } = useCreateResult(resetData);
 
   const handleUserClick = (id: number, user_answer: string) => {
     const updateResult = result.map((item) => {

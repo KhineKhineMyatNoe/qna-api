@@ -3,7 +3,7 @@ import { ResultsObj, createResultApi } from "../apis/question";
 
 
 
-const useCreateResult = () => {
+const useCreateResult = (callFunc:() => void) => {
     //const queryClient = useQueryClient();
     const useResultMutation = useMutation({
         mutationFn: createResultApi,
@@ -13,14 +13,16 @@ const useCreateResult = () => {
                 varaiables
             })
         //    queryClient.invalidateQueries({queryKey: ["questions"]});
-            console.log("Results created successfully")
+        alert("Your results are submitted successfully");
+        callFunc();
+          
         }, 
         onError: (error:any) => {
             console.log(error);
         }
     })
 
-    const handleClick = (data:ResultsObj) => {
+    const handleClick = (data:ResultsObj ) => {
         useResultMutation.mutate({
            ...data
         })
