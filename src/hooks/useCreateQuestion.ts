@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { FormEventHandler } from "react";
-import { createQuestionApi, QuestionCreateProps } from "../apis/question";
+import { createQuestionApi, QuestionCreateProps } from "../api-backend/apis/question";
 
 interface useCreateQuestionProps {
     

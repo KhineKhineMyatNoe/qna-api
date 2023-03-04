@@ -1,18 +1,20 @@
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { questionApi } from "@/apis/question";
+import { questionApi } from "../api-backend/apis/question";
 import useUpdateAnswer from "@/hooks/useUpdateAnswer";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import { useRouter } from "next/router";
 import Questions from "@/components/Questions";
+import { useListingQuery } from "@/services/query-hooks";
+import { defaultQueryCofig } from "@/helpers";
 
 export default function Home() {
   const questionQuery = useQuery({
     queryKey: ["questions"],
     queryFn: questionApi,
-    retry: 1,
-    refetchOnMount: false,
+    ...defaultQueryCofig,
   });
+
   const updateAnswer = useUpdateAnswer();
   const router = useRouter();
 
